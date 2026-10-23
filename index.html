@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Assista ao vídeo de apresentação do Excia ERP e acesse recursos relacionados.">
+  <meta name="theme-color" content="#242424">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Conheça o Excia ERP">
+  <meta property="og:description" content="Assista ao vídeo e acesse recursos relacionados ao Excia ERP.">
+  <title>Conheça o Excia ERP</title>
+  <style>
+    :root { color-scheme: light; --ink:#242424; --muted:#666; --brand:#f47721; --brand-dark:#d95d0b; --pale:#fff2e8; --line:#e5e5e5; --paper:#fff; --bg:#f7f7f7; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); font-family:Arial,Helvetica,sans-serif; line-height:1.55; }
+    a { color:var(--brand-dark); }
+    a:focus-visible, button:focus-visible, summary:focus-visible { outline:3px solid #e5a62b; outline-offset:3px; }
+    .hero { color:white; background:#242424; padding:48px 20px 106px; border-top:6px solid var(--brand); }
+    .hero-inner, main, footer { width:min(100% - 32px, 1000px); margin-inline:auto; }
+    .eyebrow { margin:0 0 10px; color:#ff9a56; font-size:.85rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; }
+    h1 { max-width:720px; margin:0; font-size:clamp(2rem,7vw,3.7rem); line-height:1.08; letter-spacing:-.04em; }
+    .hero p:last-child { max-width:620px; margin:16px 0 0; color:#f0f0f0; font-size:1.1rem; }
+    main { position:relative; margin-top:-68px; padding-bottom:52px; }
+    section { margin-bottom:24px; padding:clamp(20px,4vw,32px); border:1px solid var(--line); border-radius:18px; background:var(--paper); box-shadow:0 10px 30px #193b4c0b; }
+    h2 { margin:0 0 16px; font-size:1.35rem; letter-spacing:-.02em; }
+    .player { overflow:hidden; aspect-ratio:16/9; display:grid; place-items:center; border-radius:12px; background:#242424; color:white; }
+    .player video { display:block; width:100%; height:100%; background:#242424; }
+    .pending { max-width:540px; padding:24px; text-align:center; }
+    .pending strong { display:block; margin-bottom:6px; font-size:1.1rem; }
+    .pending p { margin:0; color:#d5e6e9; }
+    .links { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr)); gap:12px; }
+    .resource { min-height:112px; padding:16px; border:1px solid var(--line); border-radius:12px; text-decoration:none; }
+    a.resource:hover { border-color:var(--brand); background:var(--pale); }
+    .resource strong { display:block; margin-bottom:6px; }
+    .resource span { color:var(--muted); font-size:.92rem; }
+    .resource.pending-link { color:var(--muted); background:#f8fafb; }
+    footer { padding:0 0 30px; color:var(--muted); font-size:.9rem; text-align:center; }
+    @media (min-width:700px) { .hero { padding-top:68px; } }
+    @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Excia ERP</p>
+      <h1>Conheça o Excia ERP</h1>
+      <p>Assista ao vídeo e conheça os principais recursos do sistema.</p>
+    </div>
+  </header>
+  <main>
+    <section aria-labelledby="video-heading">
+      <h2 id="video-heading">Vídeo de apresentação</h2>
+      <div id="player" class="player" aria-live="polite"></div>
+    </section>
+    <section aria-labelledby="resources-heading">
+      <h2 id="resources-heading">Acesse também</h2>
+      <div class="links" id="resources"></div>
+    </section>
+  </main>
+  <footer>Excia ERP</footer>
+  <script>
+    // CONFIGURAÇÃO: atualize o vídeo e os endereços oficiais neste arquivo.
+    // Para vídeo hospedado em arquivo, informe uma URL HTTPS direta para MP4 ou WebM.
+    const siteConfig = {
+      videoUrl: "https://youtu.be/hNFlXUB_Yiw",
+      videoType: "video/mp4",
+      resources: [
+        { label: "Site oficial", url: "http://exciasistemas.com.br/", description: "Acesse o site oficial da Excia Sistemas." },
+        { label: "Intranet", url: "https://intranet.excia.com.br/", description: "Acesse a intranet." },
+        { label: "Wiki", url: "https://intranet.excia.com.br/wiki", description: "Consulte a wiki." },
+        { label: "Release", url: "http://intranet.exciasistemas.com.br/wiki/index.php/release-2/", description: "Consulte as informações de release." },
+        { label: "Excia Learning", url: "https://exciasistemas.com.br/learning", description: "Acesse o Excia Learning." },
+        { label: "Comunidade no WhatsApp", url: "https://chat.whatsapp.com/LeenunyR42p93nMVOvrNrK", description: "Acesse a comunidade no WhatsApp." },
+        { label: "Instagram", url: "https://www.instagram.com/exciasistemas/", description: "Siga a Excia no Instagram." },
+        { label: "YouTube", url: "https://www.youtube.com/@ExciaSistemas", description: "Acesse o canal da Excia no YouTube." }
+      ]
+    };
+
+    const player = document.querySelector("#player");
+    if (siteConfig.videoUrl.trim() && window.location.protocol === "file:") {
+      const pending = document.createElement("div");
+      pending.className = "pending";
+      const title = document.createElement("strong");
+      title.textContent = "Prévia local";
+      const message = document.createElement("p");
+      message.textContent = "O player incorporado estará disponível após a publicação do site. Enquanto isso, você pode assistir ao vídeo diretamente no YouTube.";
+      const link = document.createElement("a");
+      link.href = siteConfig.videoUrl;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.style.display = "inline-block";
+      link.style.marginTop = "16px";
+      link.style.padding = "10px 18px";
+      link.style.borderRadius = "999px";
+      link.style.background = "#f47721";
+      link.style.color = "#fff";
+      link.style.fontWeight = "700";
+      link.textContent = "Assistir no YouTube";
+      pending.append(title, message, link);
+      player.append(pending);
+    } else if (siteConfig.videoUrl.trim()) {
+      const youtubeMatch = siteConfig.videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
+      if (youtubeMatch) {
+        const frame = document.createElement("iframe");
+        frame.src = `https://www.youtube-nocookie.com/embed/${youtubeMatch[1]}`;
+        frame.title = "Vídeo de apresentação do Excia ERP no YouTube";
+        frame.loading = "lazy";
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        frame.allowFullscreen = true;
+        frame.style.width = "100%";
+        frame.style.height = "100%";
+        frame.style.border = "0";
+        player.append(frame);
+      } else {
+        const video = document.createElement("video");
+        video.controls = true;
+        video.preload = "metadata";
+        video.playsInline = true;
+        video.setAttribute("aria-label", "Vídeo de apresentação do Excia ERP");
+        const source = document.createElement("source");
+        source.src = siteConfig.videoUrl;
+        source.type = siteConfig.videoType;
+        video.append(source);
+        const fallback = document.createElement("p");
+        fallback.textContent = "Seu navegador não conseguiu reproduzir o vídeo. Verifique o formato e o endereço do arquivo.";
+        video.append(fallback);
+        player.append(video);
+      }
+    } else {
+      player.innerHTML = '<div class="pending"><strong>Vídeo ainda não configurado</strong><p>Adicione a URL oficial do vídeo na configuração desta página antes de publicar.</p></div>';
+    }
+
+    const resources = document.querySelector("#resources");
+    siteConfig.resources.forEach(({ label, url, description }) => {
+      const card = document.createElement(url.trim() ? "a" : "div");
+      card.className = `resource${url.trim() ? "" : " pending-link"}`;
+      if (url.trim()) {
+        card.href = url;
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
+        card.setAttribute("aria-label", `${label} (abre em nova aba)`);
+      } else {
+        card.setAttribute("aria-label", `${label}: link ainda não configurado`);
+      }
+      const title = document.createElement("strong");
+      title.textContent = label;
+      const detail = document.createElement("span");
+      detail.textContent = url.trim() ? description : "Link oficial ainda não informado";
+      card.append(title, detail);
+      resources.append(card);
+    });
+  </script>
+</body>
+</html>
+
