@@ -102,17 +102,26 @@
     } else if (siteConfig.videoUrl.trim()) {
       const youtubeMatch = siteConfig.videoUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([A-Za-z0-9_-]{11})/);
       if (youtubeMatch) {
-        const frame = document.createElement("iframe");
-        frame.src = `https://www.youtube-nocookie.com/embed/${youtubeMatch[1]}`;
-        frame.title = "Vídeo de apresentação do Excia ERP no YouTube";
-        frame.loading = "lazy";
-        frame.referrerPolicy = "strict-origin-when-cross-origin";
-        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-        frame.allowFullscreen = true;
-        frame.style.width = "100%";
-        frame.style.height = "100%";
-        frame.style.border = "0";
-        player.append(frame);
+        const notice = document.createElement("div");
+        notice.className = "pending";
+        const title = document.createElement("strong");
+        title.textContent = "Assista ao vídeo no YouTube";
+        const message = document.createElement("p");
+        message.textContent = "Este vídeo tem restrição de idade e precisa ser assistido diretamente no YouTube.";
+        const link = document.createElement("a");
+        link.href = siteConfig.videoUrl;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.style.display = "inline-block";
+        link.style.marginTop = "16px";
+        link.style.padding = "10px 18px";
+        link.style.borderRadius = "999px";
+        link.style.background = "#f47721";
+        link.style.color = "#fff";
+        link.style.fontWeight = "700";
+        link.textContent = "Assistir no YouTube";
+        notice.append(title, message, link);
+        player.append(notice);
       } else {
         const video = document.createElement("video");
         video.controls = true;
